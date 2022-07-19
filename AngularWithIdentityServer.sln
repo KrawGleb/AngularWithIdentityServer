@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularWithIdentityServer.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularWithIdentityServer.WebUI", "AngularWithIdentityServer.WebUI\AngularWithIdentityServer.WebUI.csproj", "{72428F75-BB1D-4541-9EB8-4542C59D3E84}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AngularWithIdentityServer.IdentityServer", "AngularWithIdentityServer.IdentityServer\AngularWithIdentityServer.IdentityServer.csproj", "{E634975F-4D10-4692-AB63-999570D648D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{72428F75-BB1D-4541-9EB8-4542C59D3E84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72428F75-BB1D-4541-9EB8-4542C59D3E84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72428F75-BB1D-4541-9EB8-4542C59D3E84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E634975F-4D10-4692-AB63-999570D648D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E634975F-4D10-4692-AB63-999570D648D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E634975F-4D10-4692-AB63-999570D648D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E634975F-4D10-4692-AB63-999570D648D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +91,7 @@ Global
 		{29FFCA06-1FDF-4601-8844-7D35EDE4B878} = {14BB1F77-57FE-4280-ADB8-DF65FB36B423}
 		{B9AD1CF8-236D-4AF0-AFEA-449B9D233994} = {14BB1F77-57FE-4280-ADB8-DF65FB36B423}
 		{72428F75-BB1D-4541-9EB8-4542C59D3E84} = {615BE612-FC2C-4C57-83E0-1A82C89AB78B}
+		{E634975F-4D10-4692-AB63-999570D648D8} = {14BB1F77-57FE-4280-ADB8-DF65FB36B423}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {187A64DE-DEEE-41C4-81B7-6D8C83978268}
