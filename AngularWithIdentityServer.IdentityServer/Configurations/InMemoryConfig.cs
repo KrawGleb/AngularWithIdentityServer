@@ -51,6 +51,16 @@ public static class InMemoryConfig
                 AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
                 AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, "companyApi" },
             },
+            new Client
+            {
+                ClientName = "Angular Client",
+                ClientId = "angular-client",
+                AllowedGrantTypes = GrantTypes.Hybrid,
+                RedirectUris = new List<string> { "https://localhost:5010/sigin-oidc" },
+                RequirePkce = false,
+                AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile },
+                ClientSecrets = new [] { new Secret("angularSecret".Sha512()) },
+            },
         };
 
     public static IEnumerable<ApiScope> GetApiScopes() =>

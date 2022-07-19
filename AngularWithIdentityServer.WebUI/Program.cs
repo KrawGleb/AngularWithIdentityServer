@@ -1,8 +1,26 @@
-var builder = WebApplication.CreateBuilder(args);
+﻿var builder = WebApplication.CreateBuilder(args);
+var services = builder.Services;
 
 // Add services to the container.
 
-builder.Services.AddControllersWithViews();
+services
+    .AddAuthentication(options =>
+    {
+        options.DefaultScheme = "Cookies";
+        options.DefaultChallengeScheme = "oidc";
+    })
+    .AddCookie("Cookies")
+    .AddOpenIdConnect("oidc", options =>
+    {
+        options.SignInScheme = "Cookies";
+        options.Authority = "http://localhost:5005";
+        options.ClientId = "angular-client";
+        options.ResponseType = "code id_token";
+        options.SaveTokens = true;
+        options.ClientSecret = "angularSecret";
+    });
+
+services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -17,6 +35,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
