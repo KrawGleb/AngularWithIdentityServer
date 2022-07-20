@@ -12,6 +12,7 @@ public static class InMemoryConfig
         {
             new IdentityResources.OpenId(),
             new IdentityResources.Profile(),
+            new IdentityResource("roles", "User role(s)", new List<string> { "role" }),
         };
 
     public static List<TestUser> GetTestUsers() =>
@@ -26,6 +27,7 @@ public static class InMemoryConfig
                 {
                     new Claim("given_name", "Mick"),
                     new Claim("family_name", "Mining"),
+                    new Claim("role", "Admin"),
                 },
             },
             new TestUser
@@ -37,6 +39,7 @@ public static class InMemoryConfig
                 {
                     new Claim("given_name", "Jane"),
                     new Claim("family_name", "Downing"),
+                    new Claim("role", "Visitor"),
                 },
             },
         };
@@ -53,13 +56,23 @@ public static class InMemoryConfig
             },
             new Client
             {
-                ClientName = "Angular Client",
+                ClientName = "Angular-Client",
                 ClientId = "angular-client",
-                AllowedGrantTypes = GrantTypes.Hybrid,
-                RedirectUris = new List<string> { "https://localhost:5010/sigin-oidc" },
-                RequirePkce = false,
-                AllowedScopes = { IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile },
-                ClientSecrets = new [] { new Secret("angularSecret".Sha512()) },
+                AllowedGrantTypes = GrantTypes.Code,
+                RedirectUris = new List<string> { "http://localhost:4200/signin-callback", "http://localhost:4200/assets/silent-callback.html" },
+                RequirePkce = true,
+                AllowAccessTokensViaBrowser = true,
+                AllowedScopes =
+                {
+                    IdentityServerConstants.StandardScopes.OpenId,
+                    IdentityServerConstants.StandardScopes.Profile,
+                    "companyApi",
+                },
+                AllowedCorsOrigins = { "http://localhost:4200" },
+                RequireClientSecret = false,
+                PostLogoutRedirectUris = new List<string> { "http://localhost/signout-callback" },
+                RequireConsent = false,
+                AccessTokenLifetime = 600
             },
         };
 

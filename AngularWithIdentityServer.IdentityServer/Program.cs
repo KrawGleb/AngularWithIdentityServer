@@ -1,19 +1,31 @@
-﻿using AngularWithIdentityServer.IdentityServer.Configurations;
+﻿using System.Reflection;
+using AngularWithIdentityServer.IdentityServer.Configurations;
+using AngularWithIdentityServer.IdentityServer.Extensions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
+var migrationAssembly = typeof(Program).GetTypeInfo().Assembly.GetName().Name;
 
-
-// TODO: Change memory storage with db
-services.AddIdentityServer()
-    .AddInMemoryApiScopes(InMemoryConfig.GetApiScopes())
-    .AddInMemoryApiResources(InMemoryConfig.GetApiResources())
-    .AddInMemoryIdentityResources(InMemoryConfig.GetIdentityResources())
+services
+    .AddIdentityServer()
     .AddTestUsers(InMemoryConfig.GetTestUsers())
-    .AddInMemoryClients(InMemoryConfig.GetClients())
-    .AddDeveloperSigningCredential();
+    .AddDeveloperSigningCredential()
+    .AddConfigurationStore(options =>
+    {
+        options.ConfigureDbContext = c => c.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
+            sql => sql.MigrationsAssembly(migrationAssembly));
+    })
+    .AddOperationalStore(options =>
+    {
+        options.ConfigureDbContext = c => c.UseSqlServer(builder.Configuration.GetConnectionString("SqlConnection"),
+            sql => sql.MigrationsAssembly(migrationAssembly));
+    });
 
 var app = builder.Build();
+    
+app.MigrateDatabase();
 
 app.UseIdentityServer();
 
